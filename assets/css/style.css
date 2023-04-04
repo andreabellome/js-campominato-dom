@@ -1,0 +1,54 @@
+:root{
+    --height-header: 90px;
+    --height-footer: 70px;
+    --height-button: 40px;
+
+    --cellNum: 10;
+
+}
+
+.height-header{
+    height: var(--height-header);
+}
+
+.height-footer{
+    height: var(--height-footer);
+}
+
+.height-main{
+    height: calc(100% - var(--height-header) - var(--height-footer) );
+}
+
+.height-button{
+    height: var(--height-button);
+}
+
+/* start: griglia */
+.grid{
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid black;
+    margin: auto;
+
+    width: 700px;
+    height: 700px;
+}
+
+.item{
+    border: 1px solid black;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: calc( 100% / var(--cellNum) );
+    height: calc( 100% / var(--cellNum) );
+
+}
+
+.clicked{
+    background-color: lightskyblue;
+}
+
+/* end: griglia */
+
