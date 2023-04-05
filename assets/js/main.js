@@ -10,8 +10,6 @@ btnPlay.addEventListener('click', function(){
     createGrid();
 })
 
-
-
 /* start: function to create the grid */
 function createGrid(){
 
@@ -40,6 +38,9 @@ function createGrid(){
     /* create the cell num */
     setRootProp( diffValue )
 
+    /* initialize score */
+    var score = 0;
+
     /* create items in the grid */
     for (let i = 1; i <= diffValue; i++){
 
@@ -49,22 +50,63 @@ function createGrid(){
         divItem.innerText = i;
         document.querySelector('.grid').append(divItem);
 
+        
+
         /* al click, controlla se utente ha clickato una bomba */
         check = checkValueArray(i, bombsArray);
         if (check == 1){
 
-            /* al click, colora la cella e prendi il valore */
+            
+
+            /* al click, rivela la bomba */
             divItem.addEventListener('click', function(){
-            console.log(this.innerText);
-            this.classList.add('bomb');
+
+                this.classList.add('bomb');
+
+                let divItemBomb = document.createElement( 'div' );
+                divItemBomb.classList.add('item-bomb');
+                document.querySelector('.main-div').append(divItemBomb);
+
+                /* add the html */
+                divItemBomb.innerHTML += '<h1 class="text-align-center mb-10">Hai perso!</h1>';
+                divItemBomb.innerHTML += '<div class="flex flex-dir-row align-it-center just-cont-center mb-10"><span>Il tuo punteggio è:</span><div id="divScore"></div></div><div><button type="button" class="btn btn-light border-col-dark height-button" style="display: block; margin: auto;" id="reset">Reset</button></div>';
+
+                /* display the score */
+                let divScore = document.getElementById('divScore');
+                divScore.innerText = score;
+
+                /* start: reset page by clicking the button */
+                const myButton = document.getElementById('reset');
+                myButton.addEventListener('click', () => {
+                    location.reload();
+                });
+                /* end: reset page by clicking the button */
+
+                
             })
 
         } else {
 
-            /* al click, colora la cella e prendi il valore */
+            /* al click, colora la cella */
             divItem.addEventListener('click', function(){
-            console.log(this.innerText);
-            this.classList.add('clicked');
+                this.classList.add('clicked');
+                score = score + 1;
+
+                if (score == 16) {
+                    let divItemBomb = document.createElement( 'div' );
+                    divItemBomb.classList.add('item-bomb');
+                    document.querySelector('.main-div').append(divItemBomb);
+                    /* add the html */
+                    divItemBomb.innerHTML += '<h1 class="text-align-center mb-10">Hai vinto!</h1>';
+                    divItemBomb.innerHTML += '<div class="flex flex-dir-row align-it-center just-cont-center mb-10"><span>Il tuo punteggio è:</span><div id="divScore"></div></div><div><button type="button" class="btn btn-light border-col-dark height-button" style="display: block; margin: auto;" id="reset">Reset</button></div>';
+                    let divScore = document.getElementById('divScore');
+                    divScore.innerText = score;
+                    const myButton = document.getElementById('reset');
+                    myButton.addEventListener('click', () => {
+                    location.reload();
+                });
+                }
+
             })
 
         }
@@ -116,6 +158,11 @@ function checkValueArray(val, arr){
     return check;
 
 }
-
 /* end: check if a value is in array */
 
+/* start: reset page by clicking the button */
+/* const myButton = document.getElementById('reset');
+myButton.addEventListener('click', () => {
+    location.reload();
+}); */
+/* end: reset page by clicking the button */
